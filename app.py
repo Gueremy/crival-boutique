@@ -169,7 +169,9 @@ def admin():
     
     products = load_products()
     categories = load_categories()
-    return render_template('admin.html', products=products, categories=categories)
+    # Create a dictionary for quick category name lookup in the template
+    category_map = {cat['id']: cat['name'] for cat in categories}
+    return render_template('admin.html', products=products, categories=categories, category_map=category_map)
 
 @app.route('/admin/edit_product/<int:product_id>', methods=['GET', 'POST'])
 @login_required

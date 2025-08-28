@@ -311,14 +311,7 @@
                         <tr>
                             <td data-label="Imagen"><img src="{{ product.image }}" alt="Imagen de {{ product.name }}" class="product-image-thumb"></td>
                             <td data-label="Nombre">{{ product.name }}</td>
-                            <td data-label="Categoría">
-                                {# Buscamos el nombre de la categoría que corresponde al ID del producto #}
-                                {% for category in categories %}
-                                    {% if category.id == product.get('category_id') %}
-                                        {{ category.name }}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
+                            <td data-label="Categoría">{{ category_map.get(product.get('category_id'), 'Sin categoría') }}</td>
                             <td data-label="Precio">${{ "%.0f"|format(product.price) }} CLP</td>
                             <td>
                                 <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn-action btn-edit">Editar</a>
