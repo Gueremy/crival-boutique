@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: crival-boutique
+    env: python
+    plan: free # O el plan que prefieras
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn --workers 4 --bind 0.0.0.0:$PORT app:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.4 # O la versión de Python que estés usando
+      - key: SECRET_KEY
+        generateValue: true # Render generará una clave segura automáticamente
+      - key: ADMIN_USERNAME
+        value: admin # Puedes cambiarlo aquí
+      - key: ADMIN_PASSWORD
+        sync: false # Marca la contraseña como secreta
+      - key: RENDER_DISK_PATH
+        value: /var/render/data
+    disks:
+      - name: crival-data
+        mountPath: /var/render/data
+        sizeGB: 1

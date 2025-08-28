@@ -1,0 +1,20 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+.env
+
+# Archivos de Python compilados y carpetas de build
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/
+
+# Carpeta de instancia para desarrollo local (será un disco en Render)
+instance/
+
+# Archivos específicos del sistema operativo
+.DS_Store
+Thumbs.db
+
