@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Librería de Animaciones AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
             --color-pink: #fea6a2;
@@ -59,22 +61,22 @@
         .hero-content { background-color: rgba(255, 255, 255, 0.6); padding: 2rem 3rem; border-radius: 15px; }
         .hero-content h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; color: var(--color-text); text-shadow: 2px 2px var(--color-yellow); }
         .hero-content p { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--color-text); max-width: 600px; margin: 0 auto 2rem; }
-        .btn { background-color: var(--color-yellow); color: var(--color-text); padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s ease, background-color 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
-        .btn:hover { background-color: #e5d29e; transform: translateY(-3px); }
+        .btn { background-color: var(--color-yellow); color: var(--color-text); padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .btn:hover { background-color: #e5d29e; transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
         section { padding: 4rem 0; text-align: center; }
         h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem; color: var(--color-text); border-bottom: 2px solid var(--color-green); display: inline-block; padding-bottom: 0.5rem; }
         .categories-section { background-color: var(--color-green); }
         .categories-grid { display: flex; overflow-x: auto; gap: 2rem; padding: 1rem 0 2rem 0; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .categories-grid::-webkit-scrollbar { display: none; }
         .categories-grid { -ms-overflow-style: none; scrollbar-width: none; }
-        .category-card { background-color: var(--color-white); border-radius: 15px; overflow: hidden; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; flex: 0 0 280px; scroll-snap-align: start; }
+        .category-card { background-color: var(--color-white); border-radius: 15px; overflow: hidden; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; flex: 0 0 280px; scroll-snap-align: start; }
         .category-img { width: 100%; height: 200px; object-fit: cover; background-size: cover; }
         .category-card h3 { margin: 1rem 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
         .btn-category { background-color: var(--color-blue); display: block; text-decoration: none; padding: 1rem; color: var(--color-text); font-weight: 600; transition: background-color 0.3s ease; }
         .btn-category:hover { background-color: #e4c19b; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; justify-items: center; }
-        .product-card { background-color: var(--color-white); border-radius: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); text-align: left; transition: transform 0.3s ease; max-width: 350px; cursor: pointer; overflow: hidden; }
-        .product-card:hover { transform: scale(1.03); }
+        .product-card { background-color: var(--color-white); border-radius: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); text-align: left; transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 350px; cursor: pointer; overflow: hidden; }
+        .product-card:hover { transform: scale(1.03); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12); }
         .product-img-container { width: 100%; height: 280px; }
         .product-img { width: 100%; height: 100%; object-fit: cover; }
         .product-info { padding: 1.5rem; }
@@ -124,19 +126,19 @@
 
     <main>
         <section class="hero">
-            <div class="hero-content">
-                <h1>CRIVAL BOUTIQUE ACCESORIOS</h1>
-                <p>Tu destino para productos de belleza y accesorios con estilo. Cuidamos cada detalle para ti.</p>
-                <a href="#destacados" class="btn">Explora la Colección</a>
+            <div class="hero-content" data-aos="fade-up">
+                <h1 data-aos="fade-up" data-aos-delay="100">CRIVAL BOUTIQUE ACCESORIOS</h1>
+                <p data-aos="fade-up" data-aos-delay="200">Tu destino para productos de belleza y accesorios con estilo. Cuidamos cada detalle para ti.</p>
+                <a href="#destacados" class="btn" data-aos="fade-up" data-aos-delay="300">Explora la Colección</a>
             </div>
         </section>
 
         <section class="categories-section">
             <div class="container">
-                <h2>Categorías Principales</h2>
+                <h2 data-aos="fade-up">Categorías Principales</h2>
                 <div class="categories-grid">
                     {% for category in categories %}
-                    <div class="category-card">
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
                         {% if category.image %}
                         <div class="category-img" style="background-image: url('{{ category.image }}');"></div>
                         {% else %}
@@ -154,11 +156,11 @@
 
         <section class="products-section" id="destacados">
             <div class="container">
-                <h2>Productos Destacados</h2>
+                <h2 data-aos="fade-up">Productos Destacados</h2>
                 <div class="products-grid">
                     {% if featured_products %}
                         {% for product in featured_products %}
-                        <div class="product-card" 
+                        <div class="product-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}"
                              data-id="{{ product.id }}"
                              data-name="{{ product.name }}"
                              data-description="{{ product.description }}"
@@ -215,6 +217,9 @@
         </div>
     </footer>
 
+    <!-- JS de la Librería de Animaciones AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
     <script>
         const allProducts = {{ products_json | safe }};
         const whatsappNumber = "56987756749";
@@ -223,6 +228,9 @@
             const modal = document.getElementById('product-modal');
             const closeBtn = document.getElementById('modal-close-btn');
             const productCards = document.querySelectorAll('.product-card');
+
+            // Inicializar AOS
+            AOS.init({ once: true, duration: 800, offset: 100 });
 
             productCards.forEach(card => {
                 card.addEventListener('click', () => {

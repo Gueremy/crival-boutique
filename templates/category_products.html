@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Librería de Animaciones AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
             --color-pink: #fea6a2;
@@ -73,11 +75,11 @@
     <main>
         <section class="products-section">
             <div class="container">
-                <h2>Productos en {{ category.name if category else 'Categoría Desconocida' }}</h2>
+                <h2 data-aos="fade-up">Productos en {{ category.name if category else 'Categoría Desconocida' }}</h2>
                 <div class="products-grid">
                     {% if products %}
                         {% for product in products %}
-                        <div class="product-card" 
+                        <div class="product-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}"
                              data-id="{{ product.id }}"
                              data-name="{{ product.name }}"
                              data-description="{{ product.description }}"
@@ -122,6 +124,9 @@
         </div>
     </div>
 
+    <!-- JS de la Librería de Animaciones AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
     <script>
         const allProducts = {{ products_json | safe }};
         const whatsappNumber = "56987756749";
@@ -130,6 +135,9 @@
             const modal = document.getElementById('product-modal');
             const closeBtn = document.getElementById('modal-close-btn');
             const productCards = document.querySelectorAll('.product-card');
+
+            // Inicializar AOS
+            AOS.init({ once: true, duration: 800, offset: 100 });
 
             productCards.forEach(card => {
                 card.addEventListener('click', () => {

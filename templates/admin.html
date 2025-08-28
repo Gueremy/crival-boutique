@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Librería de Animaciones AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         /* Definición de la paleta de colores y estilos generales */
         :root {
@@ -262,7 +264,7 @@
             <h1>Panel de Administración</h1>
         </header>
 
-        <section class="section-card">
+        <section class="section-card" data-aos="fade-up">
             <h2>Agregar Nuevo Producto</h2>
             <form action="{{ url_for('admin') }}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -276,8 +278,11 @@
                 <div class="form-group">
                     <label for="category_id">Categoría</label>
                     <select id="category_id" name="category_id" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                        <option value="" disabled selected>Selecciona una categoría</option>
                         {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% else %}
+                        <option value="" disabled>Primero debes crear una categoría</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -293,7 +298,7 @@
             </form>
         </section>
 
-        <section class="section-card">
+        <section class="section-card" data-aos="fade-up" data-aos-delay="100">
             <h2>Productos Existentes</h2>
             <div style="overflow-x:auto;">
                 <table class="product-table">
@@ -330,5 +335,12 @@
             </div>
         </section>
     </main>
+    <!-- JS de la Librería de Animaciones AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ once: true, duration: 600, offset: 50 });
+        });
+    </script>
 </body>
 </html>
