@@ -279,15 +279,23 @@
             const slider = document.querySelector('.categories-grid');
             if (slider && slider.scrollWidth > slider.clientWidth) {
                 let scrollInterval = setInterval(() => {
+                    autoScroll();
+                }, 3000);
+
+                function autoScroll() {
                     const atEnd = slider.scrollWidth - slider.scrollLeft - slider.clientWidth < 1;
                     if (atEnd) {
                         slider.scrollTo({ left: 0, behavior: 'smooth' });
                     } else {
-                        slider.scrollBy({ left: slider.querySelector('.category-card').offsetWidth + 20, behavior: 'smooth' });
+                        // Scroll by the width of one card plus the gap (2rem ~ 32px)
+                        slider.scrollBy({ left: slider.querySelector('.category-card').offsetWidth + 32, behavior: 'smooth' });
                     }
-                }, 3000);
+                }
 
                 slider.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+                slider.addEventListener('mouseleave', () => {
+                    scrollInterval = setInterval(autoScroll, 3000);
+                });
             }
         });
     </script>

@@ -360,5 +360,10 @@ def record_view(product_id):
         return jsonify(success=True)
     return jsonify(success=False, error='Product not found'), 404
 
+@app.route('/healthz')
+def health_check():
+    """Render health check endpoint."""
+    return jsonify(status="ok"), 200
+
 if __name__ == '__main__':
     app.run(debug=False)
