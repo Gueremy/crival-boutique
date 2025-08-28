@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | CRIVAL BOUTIQUE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Definición de la paleta de colores y estilos generales */
+        :root {
+            --color-pink: #fea6a2;
+            --color-green: #8dccad;
+            --color-yellow: #ffe9af;
+            --color-blue: #f9d6ac;
+            --color-text: #5c5241;
+            --color-white: #fff;
+            --color-dark-gray: #988864;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: var(--color-text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- Estilos de la barra lateral (Sidebar) --- */
+        .sidebar {
+            width: 250px;
+            background-color: var(--color-blue);
+            padding: 2rem 1rem;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--color-green);
+            padding-bottom: 1rem;
+        }
+
+        .sidebar-nav {
+            width: 100%;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--color-pink);
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 400;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: #e49894; /* Tono más oscuro de rosa */
+            transform: translateX(5px);
+        }
+
+        /* --- Estilos del contenido principal (Main Content) --- */
+        .main-content {
+            flex-grow: 1;
+            padding: 3rem;
+            overflow-x: auto;
+        }
+
+        .dashboard-header {
+            border-bottom: 2px solid var(--color-green);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--color-text);
+        }
+
+        /* --- Estilos de las secciones de formulario y tabla --- */
+        .section-card {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-card h2 {
+            font-size: 1.8rem;
+            color: var(--color-text);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--color-yellow);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Estilos del formulario */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-dark-gray);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #fcfcfc;
+        }
+
+        .btn-submit {
+            background-color: var(--color-green);
+            color: var(--color-text);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #7cb89b; /* Tono más oscuro de verde */
+            transform: translateY(-2px);
+        }
+
+        /* Estilos de la tabla de productos */
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .product-table th {
+            background-color: var(--color-yellow);
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .product-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .product-image-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-action {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-edit {
+            background-color: var(--color-blue);
+            color: var(--color-text);
+            margin-right: 0.5rem;
+        }
+
+        .btn-edit:hover {
+            background-color: #e4c19b; /* Tono más oscuro de azul/durazno */
+        }
+
+        .btn-delete {
+            background-color: var(--color-pink);
+            color: var(--color-text);
+        }
+
+        .btn-delete:hover {
+            background-color: #e49894; /* Tono más oscuro de rosa */
+        }
+
+        /* --- Media Queries para responsividad --- */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .sidebar-nav ul {
+                display: flex;
+                gap: 1rem;
+            }
+            .main-content {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">CRIVAL ADMIN</div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="{{ url_for('admin') }}">Productos</a></li>
+                <li><a href="{{ url_for('manage_categories') }}">Categorías</a></li>
+                <!-- Enlace para ver el sitio público en una nueva pestaña -->
+                <li style="margin-top: 2rem; border-top: 1px solid #e4c19b; padding-top: 1rem;"><a href="{{ url_for('index') }}" target="_blank">Ver Sitio Público</a></li>
+                <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <main class="main-content">
+        <header class="dashboard-header">
+            <h1>Panel de Administración</h1>
+        </header>
+
+        <section class="section-card">
+            <h2>Agregar Nuevo Producto</h2>
+            <form action="{{ url_for('admin') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Nombre del Producto</label>
+                    <input type="text" id="name" name="name" required placeholder="Ej: Labial Matte Rosa">
+                </div>
+                <div class="form-group">
+                    <label for="price">Precio (CLP)</label>
+                    <input type="number" step="any" id="price" name="price" required placeholder="Ej: 9990">
+                </div>
+                <div class="form-group">
+                    <label for="category_id">Categoría</label>
+                    <select id="category_id" name="category_id" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="image">Imagen del Producto</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <textarea id="description" name="description" rows="4" required placeholder="Ej: Labial cremoso de larga duración..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Guardar Producto</button>
+            </form>
+        </section>
+
+        <section class="section-card">
+            <h2>Productos Existentes</h2>
+            <div style="overflow-x:auto;">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td data-label="Imagen"><img src="{{ product.image }}" alt="Imagen de {{ product.name }}" class="product-image-thumb"></td>
+                            <td data-label="Nombre">{{ product.name }}</td>
+                            <td data-label="Categoría">
+                                {# Buscamos el nombre de la categoría que corresponde al ID del producto #}
+                                {% for category in categories %}
+                                    {% if category.id == product.get('category_id') %}
+                                        {{ category.name }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td data-label="Precio">${{ "%.0f"|format(product.price) }} CLP</td>
+                            <td>
+                                <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn-action btn-edit">Editar</a>
+                                <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn-action btn-delete" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" style="text-align: center;">No hay productos para mostrar.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

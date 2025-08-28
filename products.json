@@ -1,0 +1,65 @@
+[
+    {
+        "id": 2,
+        "name": "Producto 2",
+        "description": "Descripción del producto 2",
+        "price": 150,
+        "image": "https://via.placeholder.com/150",
+        "category_id": null,
+        "views": 0
+    },
+    {
+        "id": 3,
+        "name": "Producto 3",
+        "description": "Descripción del producto 3",
+        "price": 200,
+        "image": "https://via.placeholder.com/150",
+        "category_id": null,
+        "views": 0
+    },
+    {
+        "id": 4,
+        "name": "Base de Maquillaje Fluida",
+        "description": "Base de maquillaje de cobertura media con acabado natural.",
+        "price": 15000,
+        "image": "https://via.placeholder.com/300",
+        "category_id": 5,
+        "views": 1
+    },
+    {
+        "id": 5,
+        "name": "Paleta de Sombras 'Atardecer'",
+        "description": "Paleta con 12 sombras de ojos en tonos cálidos y vibrantes.",
+        "price": 25000,
+        "image": "https://via.placeholder.com/300",
+        "category_id": 6,
+        "views": 0
+    },
+    {
+        "id": 6,
+        "name": "Máscara de Pestañas 'Impacto Total'",
+        "description": "Máscara de pestañas que aporta volumen y longitud.",
+        "price": 12000,
+        "image": "https://via.placeholder.com/300",
+        "category_id": 6,
+        "views": 0
+    },
+    {
+        "id": 7,
+        "name": "Sérum Hidratante con Ácido Hialurónico",
+        "description": "Sérum facial que hidrata en profundidad y rellena las líneas de expresión.",
+        "price": 20000,
+        "image": "https://via.placeholder.com/300",
+        "category_id": 7,
+        "views": 0
+    },
+    {
+        "id": 8,
+        "name": "Labial Matte 'Rojo Pasión'",
+        "description": "Labial líquido de larga duración con acabado matte.",
+        "price": 10000,
+        "image": "https://via.placeholder.com/300",
+        "category_id": 1,
+        "views": 0
+    }
+]

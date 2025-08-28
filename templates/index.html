@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRIVAL BOUTIQUE ACCESORIOS | Maquillaje y Accesorios</title>
+    <meta name="description" content="Descubre maquillaje, skincare y accesorios modernos y femeninos. Productos de calidad para realzar tu belleza. ¡Compra por WhatsApp!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-pink: #fea6a2;
+            --color-green: #8dccad;
+            --color-yellow: #ffe9af;
+            --color-blue: #f9d6ac;
+            --color-text: #5c5241;
+            --color-white: #fff;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-pink);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        header {
+            background-color: var(--color-white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-bottom: 4px solid var(--color-blue);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .logo { font-weight: 600; font-size: 1.5rem; color: var(--color-text); }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.5rem; }
+        nav a { text-decoration: none; color: var(--color-text); font-weight: 400; transition: color 0.3s ease; }
+        nav a:hover { color: var(--color-green); }
+        main { padding-bottom: 4rem; }
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--color-pink);
+            padding: 2rem;
+            background-image: url("{{ url_for('static', filename='images/fondo.jpg') }}");
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-content { 
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 2rem 3rem; 
+            border-radius: 15px; 
+            animation: fadeIn 1s ease-in-out;
+        }
+        .hero-content h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; color: var(--color-text); text-shadow: 2px 2px var(--color-yellow); }
+        .hero-content p { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--color-text); max-width: 600px; margin: 0 auto 2rem; }
+        .btn { background-color: var(--color-yellow); color: var(--color-text); padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s ease, background-color 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .btn:hover { background-color: #e5d29e; transform: translateY(-3px); }
+        section { padding: 4rem 0; text-align: center; }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem; color: var(--color-text); border-bottom: 2px solid var(--color-green); display: inline-block; padding-bottom: 0.5rem; }
+        .categories-section { background-color: var(--color-green); }
+        .categories-grid { display: flex; overflow-x: auto; gap: 2rem; padding: 1rem 0 2rem 0; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .categories-grid::-webkit-scrollbar { display: none; }
+        .categories-grid { -ms-overflow-style: none; scrollbar-width: none; }
+        .category-card { background-color: var(--color-white); border-radius: 15px; overflow: hidden; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; flex: 0 0 280px; scroll-snap-align: start; }
+        .category-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .category-img { width: 100%; height: 200px; object-fit: cover; background-size: cover; }
+        .category-card h3 { margin: 1rem 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-category { background-color: var(--color-blue); display: block; text-decoration: none; padding: 1rem; color: var(--color-text); font-weight: 600; transition: background-color 0.3s ease; }
+        .btn-category:hover { background-color: #e4c19b; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; justify-items: center; }
+        .product-card { background-color: var(--color-white); border-radius: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); text-align: left; transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 350px; cursor: pointer; overflow: hidden; }
+        .product-card:hover { transform: scale(1.03); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .product-img-container { width: 100%; height: 280px; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info { padding: 1.5rem; }
+        .product-name { font-size: 1.3rem; margin: 0.5rem 0; font-weight: 600; }
+        .product-price { font-size: 1.2rem; font-weight: 600; color: var(--color-green); margin: 0.5rem 0 1rem; }
+        .btn-whatsapp { background-color: var(--color-yellow); color: var(--color-text); padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; display: inline-block; text-align: center; font-weight: 600; transition: transform 0.3s ease, background-color 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .btn-whatsapp:hover { background-color: #e5d29e; transform: translateY(-3px); }
+        footer { background-color: var(--color-blue); color: var(--color-text); padding: 3rem 2rem; text-align: center; border-top: 4px solid var(--color-green); }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .social-links a { color: var(--color-text); text-decoration: none; margin: 0 0.5rem; font-weight: 600; }
+        
+        /* --- Modal Styles --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000; animation: fadeIn 0.3s ease; }
+        .modal-container { background: var(--color-white); border-radius: 15px; padding: 2rem; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transform: scale(0.95); animation: scaleUp 0.3s ease forwards; }
+        .modal-close { position: absolute; top: 1rem; right: 1rem; font-size: 2rem; cursor: pointer; color: var(--color-text); line-height: 1; }
+        .modal-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .modal-img { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-radius: 10px; }
+        .modal-details h3 { font-size: 2rem; margin-top: 0; }
+        .modal-details .product-price { font-size: 1.5rem; margin-bottom: 1rem; }
+        .modal-details .product-description { font-size: 1rem; margin-bottom: 2rem; }
+        #related-products h4 { font-size: 1.2rem; margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1.5rem; }
+        #related-products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .related-product-card { text-align: center; font-size: 0.9rem; }
+        .related-product-card img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem; }
+
+        /* --- Animations --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 992px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; padding: 1rem; }
+            nav ul { 
+                flex-direction: row; 
+                flex-wrap: wrap; 
+                justify-content: center; 
+                gap: 1rem; 
+            }
+            .hero-content { padding: 1.5rem; }
+            .modal-content { grid-template-columns: 1fr; }
+            #related-products-grid { grid-template-columns: repeat(2, 1fr); }
+            .products-grid {
+                grid-template-columns: 1fr 1fr; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            .products-grid {
+                grid-template-columns: 1fr; 
+            }
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            nav ul { gap: 0.5rem; }
+            nav a { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CRIVAL BOUTIQUE</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                {% for category in categories %}
+                <li><a href="{{ url_for('show_category', category_id=category.id) }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>CRIVAL BOUTIQUE ACCESORIOS</h1>
+                <p>Tu destino para productos de belleza y accesorios con estilo. Cuidamos cada detalle para ti.</p>
+                <a href="#destacados" class="btn">Explora la Colección</a>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <div class="container">
+                <h2 class="reveal">Categorías Principales</h2>
+                <div class="categories-grid">
+                    {% for category in categories %}
+                    <div class="category-card reveal">
+                        {% if category.image %}
+                        <div class="category-img" style="background-image: url('{{ category.image }}');"></div>
+                        {% else %}
+                        <div class="category-img" style="background-image: url('https://placehold.co/400x400/8dccad/ffe9af?text={{ category.name | urlencode }}');"></div>
+                        {% endif %}
+                        <h3>{{ category.name }}</h3>
+                        <a href="{{ url_for('show_category', category_id=category.id) }}" class="btn-category">Ver Productos</a>
+                    </div>
+                    {% else %}
+                    <p>No hay categorías para mostrar.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section" id="destacados">
+            <div class="container">
+                <h2 class="reveal">Productos Destacados</h2>
+                <div class="products-grid">
+                    {% if featured_products %}
+                        {% for product in featured_products %}
+                        <div class="product-card reveal" 
+                             data-id="{{ product.id }}"
+                             data-name="{{ product.name }}"
+                             data-description="{{ product.description }}"
+                             data-price="${{ product.price | int }} CLP"
+                             data-image="{{ product.image }}"
+                             data-category-id="{{ product.category_id }}">
+                            <div class="product-img-container">
+                                <img src="{{ product.image }}" alt="{{ product.name }}" class="product-img">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">{{ product.name }}</h3>
+                                <p class="product-price">${{ product.price | int }} CLP</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay productos destacados en este momento.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-container">
+            <span id="modal-close-btn" class="modal-close">&times;</span>
+            <div class="modal-content">
+                <div class="modal-image-container">
+                    <img id="modal-img" src="" alt="Product image" class="modal-img">
+                </div>
+                <div class="modal-details">
+                    <h3 id="modal-name"></h3>
+                    <p id="modal-price" class="product-price"></p>
+                    <p id="modal-description" class="product-description"></p>
+                    <a id="modal-whatsapp-btn" href="" target="_blank" class="btn-whatsapp">Comprar por WhatsApp</a>
+                </div>
+            </div>
+            <div id="related-products">
+                <h4>Productos Relacionados</h4>
+                <div id="related-products-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 CRIVAL BOUTIQUE ACCESORIOS. Todos los derechos reservados.</p>
+            <div class="social-links">
+                <a href="#">Instagram</a> | <a href="#">Facebook</a>
+            </div>
+            <div class="contact-info">
+                <p>Contacto: info@crivalboutique.com | Tel: +56 9 8775 6749</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const allProducts = {{ products_json | safe }};
+        const whatsappNumber = "56987756749";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('product-modal');
+            const closeBtn = document.getElementById('modal-close-btn');
+            const productCards = document.querySelectorAll('.product-card');
+
+            productCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const productId = parseInt(card.dataset.id, 10);
+                    const categoryId = parseInt(card.dataset.categoryId, 10);
+
+                    fetch(`/product/${productId}/view`, { method: 'POST' });
+
+                    document.getElementById('modal-img').src = card.dataset.image;
+                    document.getElementById('modal-name').textContent = card.dataset.name;
+                    document.getElementById('modal-price').textContent = card.dataset.price;
+                    document.getElementById('modal-description').textContent = card.dataset.description;
+                    
+                    const message = encodeURIComponent(`Hola, me interesa el producto: ${card.dataset.name}`);
+                    document.getElementById('modal-whatsapp-btn').href = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+                    populateRelatedProducts(categoryId, productId);
+
+                    modal.style.display = 'flex';
+                });
+            });
+
+            function populateRelatedProducts(categoryId, currentProductId) {
+                const relatedGrid = document.getElementById('related-products-grid');
+                relatedGrid.innerHTML = '';
+                const related = allProducts.filter(p => p.category_id === categoryId && p.id !== currentProductId).slice(0, 3);
+
+                if (related.length > 0) {
+                    document.getElementById('related-products').style.display = 'block';
+                    related.forEach(p => {
+                        const relatedCard = document.createElement('div');
+                        relatedCard.className = 'related-product-card';
+                        relatedCard.innerHTML = `
+                            <img src="${p.image}" alt="${p.name}">
+                            <span>${p.name}</span>
+                        `;
+                        relatedGrid.appendChild(relatedCard);
+                    });
+                } else {
+                    document.getElementById('related-products').style.display = 'none';
+                }
+            }
+
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // --- Scroll Animations ---
+            function revealOnScroll() {
+                const reveals = document.querySelectorAll('.reveal');
+                const windowHeight = window.innerHeight;
+                for (let i = 0; i < reveals.length; i++) {
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    const elementVisible = 100; // Adjust this value
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add('visible');
+                    } else {
+                        reveals[i].classList.remove('visible');
+                    }
+                }
+            }
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Initial check
+
+            // --- Carrusel de categorías --- 
+            const slider = document.querySelector('.categories-grid');
+            if (slider && slider.scrollWidth > slider.clientWidth) {
+                let scrollInterval = setInterval(() => {
+                    const atEnd = slider.scrollWidth - slider.scrollLeft - slider.clientWidth < 1;
+                    if (atEnd) {
+                        slider.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        slider.scrollBy({ left: slider.querySelector('.category-card').offsetWidth + 20, behavior: 'smooth' });
+                    }
+                }, 3000);
+
+                slider.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+            }
+        });
+    </script>
+</body>
+</html>

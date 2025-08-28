@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Labiales",
+        "image": "/static/uploads/category_1_descarga.webp"
+    },
+    {
+        "id": 3,
+        "name": "Accesorios",
+        "image": "/static/uploads/category_3_306.webp"
+    },
+    {
+        "id": 5,
+        "name": "Bases",
+        "image": "/static/uploads/category_5_cuales-son-las-bases-del-maquillaje.webp"
+    },
+    {
+        "id": 6,
+        "name": "Ojos",
+        "image": "/static/uploads/category_6_SetCompletodeMaquillajeOjos.webp"
+    },
+    {
+        "id": 7,
+        "name": "Cuidado de la piel",
+        "image": "/static/uploads/category_7_GOQGLC3A3VGGTCR4IP7LYPB74A.avif"
+    }
+]
