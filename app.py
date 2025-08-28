@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 import json
 import os
+import time
 
 app = Flask(__name__)
 
@@ -40,7 +41,7 @@ ADMIN_USER = {
 }
 
 @login_manager.user_loader
-def load__user(user_id):
+def load_user(user_id):
     if user_id == ADMIN_USER["username"]:
         return User(ADMIN_USER["username"])
     return None
@@ -195,7 +196,7 @@ def edit_product(product_id):
                 except (FileNotFoundError, IndexError):
                     pass
 
-            basename = f"product_{product_id}_{os.path.splitext(secure_filename(file.filename))[0]}"
+            basename = f"product_{product_id}_{int(time.time())}"
             new_filename, converted = save_image(file, app.config['UPLOAD_FOLDER'], basename)
 
             if not converted:
@@ -282,7 +283,7 @@ def edit_category(category_id):
                 except (FileNotFoundError, IndexError):
                     pass
 
-            basename = f"category_{category_id}_{os.path.splitext(secure_filename(file.filename))[0]}"
+            basename = f"category_{category_id}_{int(time.time())}"
             new_filename, converted = save_image(file, app.config['UPLOAD_FOLDER'], basename)
 
             if not converted:
@@ -300,6 +301,7 @@ def edit_category(category_id):
 @login_required
 def delete_category(category_id):
     categories = load_categories()
+    products = load_products()
     category_to_delete = next((c for c in categories if c['id'] == category_id), None)
 
     if category_to_delete:
@@ -312,8 +314,28 @@ def delete_category(category_id):
         
         categories = [c for c in categories if c['id'] != category_id]
         save_categories(categories)
-        flash('Categoría eliminada exitosamente!')
 
+        # Also delete products associated with this category
+        products_to_keep = []
+        products_deleted_count = 0
+        for p in products:
+            if p.get('category_id') == category_id:
+                if p.get('image'):
+                    try:
+                        filename = os.path.basename(p['image'])
+                        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(filename)))
+                    except (FileNotFoundError, IndexError):
+                        pass # Ignore if file not found
+                products_deleted_count += 1
+            else:
+                products_to_keep.append(p)
+        
+        if products_deleted_count > 0:
+            save_products(products_to_keep)
+
+        flash(f'Categoría y {products_deleted_count} producto(s) asociado(s) eliminados exitosamente!')
+    else:
+        flash('Categoría no encontrada.', 'warning')
     return redirect(url_for('manage_categories'))
 
 @app.route('/category/<int:category_id>')

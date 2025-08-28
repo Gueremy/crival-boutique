@@ -24,7 +24,6 @@
             background-color: var(--color-pink);
             color: var(--color-text);
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
         }
         .container {
             max-width: 1200px;
@@ -39,10 +38,6 @@
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-bottom: 4px solid var(--color-blue);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: top 0.3s;
         }
         .logo { font-weight: 600; font-size: 1.5rem; color: var(--color-text); }
         nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.5rem; }
@@ -61,12 +56,7 @@
             background-size: cover;
             background-position: center;
         }
-        .hero-content { 
-            background-color: rgba(255, 255, 255, 0.6);
-            padding: 2rem 3rem; 
-            border-radius: 15px; 
-            animation: fadeIn 1s ease-in-out;
-        }
+        .hero-content { background-color: rgba(255, 255, 255, 0.6); padding: 2rem 3rem; border-radius: 15px; }
         .hero-content h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; color: var(--color-text); text-shadow: 2px 2px var(--color-yellow); }
         .hero-content p { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--color-text); max-width: 600px; margin: 0 auto 2rem; }
         .btn { background-color: var(--color-yellow); color: var(--color-text); padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s ease, background-color 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
@@ -77,15 +67,14 @@
         .categories-grid { display: flex; overflow-x: auto; gap: 2rem; padding: 1rem 0 2rem 0; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .categories-grid::-webkit-scrollbar { display: none; }
         .categories-grid { -ms-overflow-style: none; scrollbar-width: none; }
-        .category-card { background-color: var(--color-white); border-radius: 15px; overflow: hidden; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; flex: 0 0 280px; scroll-snap-align: start; }
-        .category-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .category-card { background-color: var(--color-white); border-radius: 15px; overflow: hidden; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; flex: 0 0 280px; scroll-snap-align: start; }
         .category-img { width: 100%; height: 200px; object-fit: cover; background-size: cover; }
         .category-card h3 { margin: 1rem 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
         .btn-category { background-color: var(--color-blue); display: block; text-decoration: none; padding: 1rem; color: var(--color-text); font-weight: 600; transition: background-color 0.3s ease; }
         .btn-category:hover { background-color: #e4c19b; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; justify-items: center; }
-        .product-card { background-color: var(--color-white); border-radius: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); text-align: left; transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 350px; cursor: pointer; overflow: hidden; }
-        .product-card:hover { transform: scale(1.03); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .product-card { background-color: var(--color-white); border-radius: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); text-align: left; transition: transform 0.3s ease; max-width: 350px; cursor: pointer; overflow: hidden; }
+        .product-card:hover { transform: scale(1.03); }
         .product-img-container { width: 100%; height: 280px; }
         .product-img { width: 100%; height: 100%; object-fit: cover; }
         .product-info { padding: 1.5rem; }
@@ -98,8 +87,8 @@
         .social-links a { color: var(--color-text); text-decoration: none; margin: 0 0.5rem; font-weight: 600; }
         
         /* --- Modal Styles --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000; animation: fadeIn 0.3s ease; }
-        .modal-container { background: var(--color-white); border-radius: 15px; padding: 2rem; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transform: scale(0.95); animation: scaleUp 0.3s ease forwards; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-container { background: var(--color-white); border-radius: 15px; padding: 2rem; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .modal-close { position: absolute; top: 1rem; right: 1rem; font-size: 2rem; cursor: pointer; color: var(--color-text); line-height: 1; }
         .modal-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
         .modal-img { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-radius: 10px; }
@@ -111,61 +100,12 @@
         .related-product-card { text-align: center; font-size: 0.9rem; }
         .related-product-card img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem; }
 
-        /* --- Animations --- */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- Responsiveness --- */
-        @media (max-width: 992px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 1rem; padding: 1rem; }
-            nav ul { 
-                flex-direction: row; 
-                flex-wrap: wrap; 
-                justify-content: center; 
-                gap: 1rem; 
-            }
+            nav ul { flex-direction: column; align-items: center; gap: 0.5rem; }
             .hero-content { padding: 1.5rem; }
             .modal-content { grid-template-columns: 1fr; }
             #related-products-grid { grid-template-columns: repeat(2, 1fr); }
-            .products-grid {
-                grid-template-columns: 1fr 1fr; 
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
-            }
-            h2 {
-                font-size: 1.6rem;
-            }
-            .products-grid {
-                grid-template-columns: 1fr; 
-            }
-            .hero-content h1 {
-                font-size: 1.8rem;
-            }
-            .hero-content p {
-                font-size: 0.9rem;
-            }
-            nav ul { gap: 0.5rem; }
-            nav a { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -193,10 +133,10 @@
 
         <section class="categories-section">
             <div class="container">
-                <h2 class="reveal">Categorías Principales</h2>
+                <h2>Categorías Principales</h2>
                 <div class="categories-grid">
                     {% for category in categories %}
-                    <div class="category-card reveal">
+                    <div class="category-card">
                         {% if category.image %}
                         <div class="category-img" style="background-image: url('{{ category.image }}');"></div>
                         {% else %}
@@ -214,11 +154,11 @@
 
         <section class="products-section" id="destacados">
             <div class="container">
-                <h2 class="reveal">Productos Destacados</h2>
+                <h2>Productos Destacados</h2>
                 <div class="products-grid">
                     {% if featured_products %}
                         {% for product in featured_products %}
-                        <div class="product-card reveal" 
+                        <div class="product-card" 
                              data-id="{{ product.id }}"
                              data-name="{{ product.name }}"
                              data-description="{{ product.description }}"
@@ -289,8 +229,6 @@
                     const productId = parseInt(card.dataset.id, 10);
                     const categoryId = parseInt(card.dataset.categoryId, 10);
 
-                    fetch(`/product/${productId}/view`, { method: 'POST' });
-
                     document.getElementById('modal-img').src = card.dataset.image;
                     document.getElementById('modal-name').textContent = card.dataset.name;
                     document.getElementById('modal-price').textContent = card.dataset.price;
@@ -336,24 +274,6 @@
                     closeModal();
                 }
             });
-
-            // --- Scroll Animations ---
-            function revealOnScroll() {
-                const reveals = document.querySelectorAll('.reveal');
-                const windowHeight = window.innerHeight;
-                for (let i = 0; i < reveals.length; i++) {
-                    const elementTop = reveals[i].getBoundingClientRect().top;
-                    const elementVisible = 100; // Adjust this value
-                    if (elementTop < windowHeight - elementVisible) {
-                        reveals[i].classList.add('visible');
-                    } else {
-                        reveals[i].classList.remove('visible');
-                    }
-                }
-            }
-
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll(); // Initial check
 
             // --- Carrusel de categorías --- 
             const slider = document.querySelector('.categories-grid');
