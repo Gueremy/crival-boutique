@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Definición de la paleta de colores y estilos generales */
         :root {
             --color-pink: #fea6a2;
             --color-green: #8dccad;
@@ -18,7 +17,6 @@
             --color-white: #fff;
             --color-dark-gray: #988864;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -29,8 +27,6 @@
             display: flex;
             min-height: 100vh;
         }
-
-        /* --- Estilos de la barra lateral (Sidebar) --- */
         .sidebar {
             width: 250px;
             background-color: var(--color-blue);
@@ -41,7 +37,6 @@
             align-items: center;
             flex-shrink: 0;
         }
-
         .sidebar-logo {
             font-size: 1.5rem;
             font-weight: 600;
@@ -51,17 +46,8 @@
             border-bottom: 2px solid var(--color-green);
             padding-bottom: 1rem;
         }
-
-        .sidebar-nav {
-            width: 100%;
-        }
-
-        .sidebar-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
+        .sidebar-nav { width: 100%; }
+        .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
         .sidebar-nav a {
             display: block;
             padding: 1rem;
@@ -73,32 +59,28 @@
             border-radius: 8px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
-
         .sidebar-nav a:hover {
-            background-color: #e49894; /* Tono más oscuro de rosa */
+            background-color: #e49894;
             transform: translateX(5px);
         }
-
-        /* --- Estilos del contenido principal (Main Content) --- */
         .main-content {
             flex-grow: 1;
             padding: 3rem;
             overflow-x: auto;
         }
-
         .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 2px solid var(--color-green);
             padding-bottom: 1.5rem;
             margin-bottom: 2rem;
         }
-
         .dashboard-header h1 {
             font-size: 2.5rem;
             margin: 0;
             color: var(--color-text);
         }
-
-        /* --- Estilos de las secciones de formulario y tabla --- */
         .section-card {
             background-color: var(--color-white);
             border-radius: 12px;
@@ -106,7 +88,6 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-
         .section-card h2 {
             font-size: 1.8rem;
             color: var(--color-text);
@@ -116,21 +97,16 @@
             display: inline-block;
             padding-bottom: 0.5rem;
         }
-
-        /* Estilos del formulario */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
+        .form-group { margin-bottom: 1.5rem; }
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--color-dark-gray);
         }
-
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #ddd;
@@ -140,7 +116,6 @@
             box-sizing: border-box;
             background-color: #fcfcfc;
         }
-
         .btn-submit {
             background-color: var(--color-green);
             color: var(--color-text);
@@ -152,32 +127,59 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
-
         .btn-submit:hover {
-            background-color: #7cb89b; /* Tono más oscuro de verde */
+            background-color: #7cb89b;
             transform: translateY(-2px);
         }
+        .btn-cancel {
+            display: inline-block;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            background-color: #eee;
+            color: var(--color-dark-gray);
+        }
+        .btn-cancel:hover { background-color: #ddd; }
 
-        /* --- Media Queries para responsividad --- */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                padding: 1rem;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            }
-            .sidebar-nav ul {
-                display: flex;
-                gap: 1rem;
-            }
-            .main-content {
-                padding: 2rem 1rem;
-            }
+        /* --- Responsive Admin Layout --- */
+        .admin-hamburger {
+            display: none; /* Oculto en escritorio por defecto */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+        .admin-hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-text);
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+        }
+
+        @media (max-width: 992px) {
+            body { display: block; } /* Romper el layout flex para apilar verticalmente */
+            .sidebar { position: fixed; height: 100%; top: 0; left: 0; z-index: 1000; transform: translateX(-100%); transition: transform 0.3s ease-in-out; }
+            .sidebar.is-active { transform: translateX(0); }
+            .main-content { padding: 1.5rem; }
+            .dashboard-header h1 { font-size: 1.8rem; }
+            .admin-hamburger { display: block; }
+            .overlay.is-active { display: block; }
         }
     </style>
 </head>
@@ -188,7 +190,6 @@
             <ul>
                 <li><a href="{{ url_for('admin') }}">Productos</a></li>
                 <li><a href="{{ url_for('manage_categories') }}">Categorías</a></li>
-                <!-- Enlace para ver el sitio público en una nueva pestaña -->
                 <li style="margin-top: 2rem; border-top: 1px solid #e4c19b; padding-top: 1rem;"><a href="{{ url_for('index') }}" target="_blank">Ver Sitio Público</a></li>
                 <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
             </ul>
@@ -197,11 +198,16 @@
     
     <main class="main-content">
         <header class="dashboard-header">
-            <h1>Panel de Administración</h1>
+            <h1>Editar Producto</h1>
+            <button class="admin-hamburger" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
 
         <section class="section-card">
-            <h2>Editar Producto</h2>
+            <h2>Datos del Producto</h2>
             <form action="{{ url_for('edit_product', product_id=product.id) }}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Nombre del Producto</label>
@@ -213,7 +219,7 @@
                 </div>
                 <div class="form-group">
                     <label for="category_id">Categoría</label>
-                    <select id="category_id" name="category_id" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                    <select id="category_id" name="category_id" required>
                         {% for category in categories %}
                         <option value="{{ category.id }}" {% if product.category_id == category.id %}selected{% endif %}>
                             {{ category.name }}
@@ -232,9 +238,26 @@
                     <textarea id="description" name="description" rows="4" required>{{ product.description }}</textarea>
                 </div>
                 <button type="submit" class="btn-submit">Actualizar Producto</button>
-                <a href="{{ url_for('admin') }}" style="display: inline-block; margin-top: 1rem; color: var(--color-dark-gray);">Volver al Panel</a>
+                <a href="{{ url_for('admin') }}" class="btn-cancel" style="margin-left: 1rem;">Volver al Panel</a>
             </form>
         </section>
     </main>
+    <div class="overlay"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.admin-hamburger');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+
+            function toggleMenu() {
+                sidebar.classList.toggle('is-active');
+                overlay.classList.toggle('is-active');
+            }
+
+            hamburger.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+# Establece el comportamiento predeterminado para todos los archivos de texto.
+# Git los tratará como texto y manejará los finales de línea automáticamente.
+* text=auto
+
+# Para archivos específicos, asegúrate de que siempre usen finales de línea LF (Unix).
+# Esto es bueno para la consistencia en proyectos web y de scripting.
+*.py text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
