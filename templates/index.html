@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRIVAL BOUTIQUE ACCESORIOS | Maquillaje y Accesorios</title>
-    <meta name="description" content="Descubre maquillaje, skincare y accesorios modernos y femeninos. Productos de calidad para realzar tu belleza. ¡Compra por WhatsApp!">
+    <title>CRIVAL BOUTIQUE | Maquillaje, Skincare y Accesorios de Belleza</title>
+    <meta name="description" content="Tienda online de maquillaje, skincare, cosméticos y accesorios de belleza. Encuentra productos de calidad, modernos y femeninos para realzar tu belleza. ¡Compra maquillaje y accesorios exclusivos en Crival Boutique!">
+    <meta name="keywords" content="maquillaje, skincare, cosméticos, accesorios de belleza, tienda de maquillaje, productos de belleza, maquillaje online, comprar maquillaje, belleza femenina, cuidado de la piel, labiales, sombras, brochas, accesorios para mujer, crival boutique">
+    <meta property="og:title" content="CRIVAL BOUTIQUE | Maquillaje, Skincare y Accesorios de Belleza">
+    <meta property="og:description" content="Tienda online de maquillaje, skincare, cosméticos y accesorios de belleza. Productos modernos y femeninos para realzar tu belleza. ¡Compra ahora!">
+    <meta property="og:image" content="{{ url_for('static', filename='images/logosinfondo.webp') }}">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Librería de Animaciones AOS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
@@ -41,15 +47,17 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-bottom: 4px solid var(--color-blue);
         }
-        .logo { 
-            font-weight: 600; 
-            font-size: 1.5rem; 
-            color: var(--color-text); 
+        .logo {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-        .logo img { height: 60px; }
+    .logo img { height: 160px; }
+        .logo span {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--color-text);
+        }
         nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.5rem; }
         
         /* --- Hamburger Menu & Navigation Panel --- */
@@ -199,7 +207,7 @@
     <header>
         <div class="logo">
             <img src="{{ url_for('static', filename='images/logosinfondo.webp') }}" alt="Logo de CRIVAL BOUTIQUE">
-            <span>CRIVAL BOUTIQUE</span>
+            <span>C Rival Boutique</span>
         </div>
         <button class="hamburger-menu" aria-label="Abrir menú">
             <span></span>
