@@ -53,7 +53,7 @@
             align-items: center;
             gap: 1rem;
         }
-    .logo img { height: 160px; }
+    .logo img { height: 200px; }
         .logo span {
             font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
@@ -315,6 +315,13 @@
             </div>
             <div class="contact-info">
                 <p>Tel: +56 9 8775 6749</p>
+            </div>
+            <div class="envio-info">
+                <p>Envios a regiones por Starken y Blue Express</p>
+            </div>
+            <div class="shipping-logos" style="margin-top: 1rem; display: flex; align-items: center; gap: 1.5rem;">
+                <img src="{{ url_for('static', filename='images/starken.webp') }}" alt="Starken" title="Envíos por Starken" style="height: 49px;">
+                <img src="{{ url_for('static', filename='images/blue.webp') }}" alt="Blue Express" title="Envíos por Blue Express" style="height: 49px;">
             </div>
         </div>
     </footer>
